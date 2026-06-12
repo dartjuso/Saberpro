@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Acceso SaberPro Web - UTS</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700;900&display=swap');
+        body { font-family: 'Inter', sans-serif; }
+    </style>
+</head>
+<body class="bg-slate-950 min-h-screen flex items-center justify-center p-6">
+
+    <div class="fixed inset-0 overflow-hidden -z-10">
+        <div class="absolute -top-[10%] -left-[10%] w-[500px] h-[500px] bg-blue-900/20 rounded-full blur-[120px]"></div>
+        <div class="absolute bottom-[10%] right-[10%] w-[300px] h-[300px] bg-indigo-900/20 rounded-full blur-[100px]"></div>
+    </div>
+
+    <div class="max-w-md w-full bg-white/95 backdrop-blur-xl rounded-3xl shadow-2xl border border-white/20 overflow-hidden">
+        
+        <div class="px-8 pt-10 pb-6 text-center">
+            <h1 class="text-3xl font-black text-slate-900 tracking-tight">SaberPro<span class="text-blue-600">Web</span></h1>
+            <p class="text-slate-500 text-sm mt-2">Bienvenido a la plataforma de la UTS</p>
+        </div>
+
+        <div class="px-8 pb-10">
+            
+            <div th:if="${param.error}" class="bg-red-50 border border-red-200 text-red-700 p-4 mb-6 rounded-2xl text-sm font-medium flex items-center gap-3">
+                <svg class="w-5 h-5 shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"/></svg>
+                Credenciales incorrectas. Intenta de nuevo.
+            </div>
+
+            <div th:if="${param.logout}" class="bg-emerald-50 border border-emerald-200 text-emerald-700 p-4 mb-6 rounded-2xl text-sm font-medium flex items-center gap-3">
+                <svg class="w-5 h-5 shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
+                Sesión cerrada correctamente.
+            </div>
+
+            <form th:action="@{/login}" method="post" class="space-y-6">
+                
+                <div>
+                    <label for="username" class="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-2 ml-1">Documento de Identidad</label>
+                    <input type="text" id="username" name="username" required autofocus autocomplete="off"
+                           class="w-full bg-slate-100 border border-slate-200 rounded-xl px-4 py-3 text-slate-800 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all"
+                           placeholder="Ingrese su usuario">
+                </div>
+
+                <div>
+                    <label for="password" class="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-2 ml-1">Contraseña</label>
+                    <input type="password" id="password" name="password" required
+                           class="w-full bg-slate-100 border border-slate-200 rounded-xl px-4 py-3 text-slate-800 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all"
+                           placeholder="••••••••">
+                </div>
+
+                <button type="submit" 
+                        class="w-full bg-slate-900 hover:bg-slate-800 text-white font-bold py-4 rounded-xl shadow-lg transition-all hover:scale-[1.02] active:scale-[0.98]">
+                    Iniciar Sesión
+                </button>
+            </form>
+        </div>
+        
+        <div class="bg-slate-50 py-5 text-center border-t border-slate-100">
+            <p class="text-[10px] text-slate-400 font-bold uppercase tracking-widest">
+                Unidades Tecnológicas de Santander &copy; 2026
+            </p>
+        </div>
+    </div>
+
+</body>
+</html>

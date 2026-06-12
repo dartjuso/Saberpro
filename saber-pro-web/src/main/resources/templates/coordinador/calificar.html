@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ingresar Notas - Saber Pro UTS</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .nav-link { transition: all 0.3s ease; }
+        .nav-link:hover { transform: translateX(5px); }
+    </style>
+</head>
+<body class="bg-slate-50 font-sans antialiased text-slate-900 flex h-screen overflow-hidden">
+
+    <aside class="w-64 bg-slate-900 text-white flex flex-col shadow-2xl shrink-0 z-20">
+        <div class="h-16 flex items-center justify-center border-b border-slate-800">
+            <h2 class="text-2xl font-bold tracking-wider text-blue-400">SaberPro<span class="text-white">Web</span></h2>
+        </div>
+        
+        <nav class="flex-1 px-4 py-6 space-y-2">
+            <a th:href="@{/coordinador/dashboard}" class="nav-link flex items-center gap-3 px-4 py-3 text-slate-400 hover:bg-slate-800 hover:text-white rounded-lg">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path></svg>
+                Dashboard
+            </a>
+            
+            <a th:href="@{/estudiantes}" class="nav-link flex items-center gap-3 px-4 py-3 bg-blue-600 text-white rounded-lg shadow-md">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
+                Gestión Estudiantes
+            </a>
+            
+            <a th:href="@{/coordinador/informes}" class="nav-link flex items-center gap-3 px-4 py-3 text-slate-400 hover:bg-slate-800 hover:text-white rounded-lg">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"></path></svg>
+                Asignar Beneficios
+            </a>
+        </nav>
+
+        <div class="p-4 border-t border-slate-800">
+            <form th:action="@{/logout}" method="post">
+                <button type="submit" class="w-full text-left px-4 py-3 text-red-400 hover:bg-red-900 hover:text-white rounded-lg transition-colors flex items-center gap-2">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path></svg>
+                    Cerrar Sesión
+                </button>
+            </form>
+        </div>
+    </aside>
+
+    <div class="flex-1 flex flex-col overflow-hidden w-full">
+        <header class="h-16 bg-white shadow-sm flex items-center justify-between px-8 z-10 shrink-0">
+            <div class="flex items-center gap-4">
+                <a th:href="@{/estudiantes}" class="text-slate-400 hover:text-indigo-600 transition-colors">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
+                </a>
+                <h1 class="text-xl font-bold text-slate-700">Calificar Estudiante</h1>
+            </div>
+            <div class="flex items-center gap-3">
+                <span class="text-sm font-semibold text-slate-600">Coordinador de Facultad UTS</span>
+                <div class="w-9 h-9 bg-indigo-100 rounded-full flex items-center justify-center text-indigo-700 font-bold shadow-sm">C</div>
+            </div>
+        </header>
+
+        <main class="flex-1 overflow-y-auto p-8 bg-slate-100 flex justify-center">
+            
+            <div class="w-full max-w-4xl">
+                
+                <div class="bg-indigo-900 rounded-t-2xl p-6 md:p-8 text-white relative overflow-hidden shadow-lg">
+                    <div class="absolute top-0 right-0 opacity-10">
+                        <svg class="w-48 h-48 -mr-10 -mt-10" fill="currentColor" viewBox="0 0 24 24"><path d="M12 14l9-5-9-5-9 5 9 5zm0 0l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l9-5-9-5-9 5 9 5zm0 0l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14zm-4 6v-7.5l4-2.222"></path></svg>
+                    </div>
+                    
+                    <div class="relative z-10 flex items-center gap-6">
+                        <div class="w-20 h-20 bg-white/20 rounded-2xl flex items-center justify-center text-white font-bold text-3xl shadow-inner backdrop-blur-sm"
+                             th:text="${#strings.substring(estudiante.primerNombre ?: 'E', 0, 1)}">E</div>
+                        <div>
+                            <h2 class="text-2xl font-bold tracking-wide" th:text="${(estudiante.primerNombre ?: '') + ' ' + (estudiante.primerApellido ?: '')}">Nombre del Estudiante</h2>
+                            <div class="flex items-center gap-4 mt-2 text-indigo-200 text-sm font-medium">
+                                <span class="flex items-center gap-1"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V8a2 2 0 00-2-2h-5m-4 0V5a2 2 0 114 0v1m-4 0a2 2 0 104 0m-5 8a2 2 0 100-4 2 2 0 000 4zm0 0c1.306 0 2.417.835 2.83 2M9 14a3.001 3.001 0 00-2.83 2M15 11h3m-3 4h2"></path></svg> Doc: <span th:text="${estudiante.documento}"></span></span>
+                                <span class="flex items-center gap-1"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg> Reg: <span th:text="${estudiante.numeroRegistro ?: 'Pendiente'}"></span></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-b-2xl shadow-xl border border-t-0 border-slate-200 p-8 md:p-10">
+                    
+                    <div class="mb-8 border-b border-slate-100 pb-4">
+                        <h3 class="text-lg font-bold text-slate-800">Resultados Pruebas Saber Pro</h3>
+                        <p class="text-sm text-slate-500">Ingresa los puntajes obtenidos en los distintos módulos evaluados.</p>
+                    </div>
+
+                    <form th:action="@{/coordinador/guardar-notas/{id}(id=${estudiante.id})}" method="post" class="space-y-8">
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+    
+						    <div class="md:col-span-2 bg-indigo-50 border border-indigo-100 p-6 rounded-xl">
+						        <label class="block text-sm font-extrabold text-indigo-900 mb-2 uppercase tracking-wide">Puntaje Global (Calculado)</label>
+						        <input type="number" name="puntajeGlobal" id="puntajeGlobal" readonly
+						               class="w-full px-5 py-3 rounded-lg border border-indigo-200 text-lg font-bold text-indigo-900 bg-indigo-100 shadow-sm cursor-not-allowed">
+						    </div>
+						
+						    <div>
+						        <label class="block text-sm font-bold text-slate-700 mb-2">Lectura Crítica</label>
+						        <div class="relative">
+						            <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+						                <svg class="h-5 w-5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
+						            </div>
+						            <input type="number" name="puntajeLectura" id="puntajeLectura" min="0" max="300" placeholder="0 - 300" required oninput="calcularGlobal()"
+						                   class="w-full pl-12 pr-4 py-3 rounded-lg border border-slate-300 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition-all shadow-sm">
+						        </div>
+						    </div>
+						
+						    <div>
+						        <label class="block text-sm font-bold text-slate-700 mb-2">Módulo de Inglés</label>
+						        <div class="relative">
+						            <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+						                <svg class="h-5 w-5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129"></path></svg>
+						            </div>
+						            <input type="number" name="puntajeIngles" id="puntajeIngles" min="0" max="300" placeholder="0 - 300" required oninput="calcularGlobal()"
+						                   class="w-full pl-12 pr-4 py-3 rounded-lg border border-slate-300 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition-all shadow-sm">
+						        </div>
+						    </div>
+						
+						    <div>
+						        <label class="block text-sm font-bold text-slate-700 mb-2">Razonamiento Cuantitativo</label>
+						        <div class="relative">
+						            <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+						                <svg class="h-5 w-5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+						            </div>
+						            <input type="number" name="puntajeRazonamiento" id="puntajeRazonamiento" min="0" max="300" placeholder="0 - 300" required oninput="calcularGlobal()"
+						                   class="w-full pl-12 pr-4 py-3 rounded-lg border border-slate-300 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition-all shadow-sm">
+						        </div>
+						    </div>
+						</div>
+						
+						<script>
+						    function calcularGlobal() {
+						        const lectura = parseFloat(document.getElementById('puntajeLectura').value) || 0;
+						        const ingles = parseFloat(document.getElementById('puntajeIngles').value) || 0;
+						        const razonamiento = parseFloat(document.getElementById('puntajeRazonamiento').value) || 0;
+						        
+						        // Aquí ajusté la fórmula al promedio, si necesitas otra, cámbiala aquí:
+						        const global = Math.round((lectura + ingles + razonamiento) / 3);
+						        
+						        document.getElementById('puntajeGlobal').value = global;
+						    }
+						</script>
+                        <div class="flex items-center justify-end gap-4 pt-6 border-t border-slate-100 mt-8">
+                            <a th:href="@{/estudiantes}" class="px-6 py-3 font-semibold text-slate-600 hover:bg-slate-100 rounded-lg transition-colors">
+                                Cancelar
+                            </a>
+                            <button type="submit" class="px-8 py-3 font-bold text-white bg-indigo-600 hover:bg-indigo-700 rounded-lg shadow-md transition-colors flex items-center gap-2">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-3m-1 4l-3 3m0 0l-3-3m3 3V4"></path></svg>
+                                Guardar Calificaciones
+                            </button>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+            
+        </main>
+    </div>
+</body>
+</html>

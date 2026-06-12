@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SaberPro Web | Unidades Tecnológicas de Santander</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700;900&display=swap');
+        body { font-family: 'Inter', sans-serif; }
+    </style>
+</head>
+<body class="bg-slate-950 text-white selection:bg-blue-500 selection:text-white">
+
+    <nav class="absolute top-0 w-full p-6 flex justify-between items-center z-10">
+        <div class="text-xl font-black tracking-tighter">UTS<span class="text-blue-500">SaberPro</span></div>
+        <a th:href="@{/login}" class="text-sm font-medium hover:text-blue-400 transition-colors">Iniciar Sesión</a>
+    </nav>
+
+    <main class="relative min-h-screen flex flex-col items-center justify-center p-6">
+        <div class="absolute inset-0 overflow-hidden">
+            <div class="absolute -top-[20%] -right-[10%] w-[500px] h-[500px] bg-blue-600/20 rounded-full blur-[120px]"></div>
+            <div class="absolute bottom-[10%] left-[10%] w-[300px] h-[300px] bg-indigo-600/20 rounded-full blur-[100px]"></div>
+        </div>
+
+        <div class="relative z-10 text-center max-w-3xl">
+            <span class="inline-block py-1 px-3 rounded-full bg-blue-900/50 text-blue-300 text-xs font-bold uppercase tracking-widest mb-6 border border-blue-800">
+                Plataforma Institucional UTS
+            </span>
+            <h1 class="text-5xl md:text-7xl font-black mb-6 leading-tight">
+                Gestión Integral <br><span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-blue-600">Saber Pro</span>
+            </h1>
+            <p class="text-slate-400 text-lg md:text-xl mb-10 leading-relaxed">
+                El ecosistema digital para el seguimiento, pago, presentación y asignación de beneficios de las pruebas de estado de nuestras Unidades Tecnológicas de Santander.
+            </p>
+
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                <a th:href="@{/login}" 
+                   class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-4 px-10 rounded-2xl text-lg shadow-lg shadow-blue-900/20 transition-all hover:scale-105 active:scale-95">
+                    Ingresar al Sistema
+                </a>
+            </div>
+        </div>
+
+        <div class="relative z-10 grid grid-cols-1 md:grid-cols-3 gap-6 mt-20 max-w-5xl w-full">
+            <div class="bg-white/5 backdrop-blur-md border border-white/10 p-6 rounded-2xl hover:bg-white/10 transition-all">
+                <div class="w-10 h-10 bg-blue-500/20 text-blue-400 rounded-lg flex items-center justify-center mb-4">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"></path></svg>
+                </div>
+                <h3 class="font-bold mb-2">Pagos Seguros</h3>
+                <p class="text-sm text-slate-400">Gestiona y valida tus comprobantes de pago de forma rápida.</p>
+            </div>
+
+            <div class="bg-white/5 backdrop-blur-md border border-white/10 p-6 rounded-2xl hover:bg-white/10 transition-all">
+                <div class="w-10 h-10 bg-indigo-500/20 text-indigo-400 rounded-lg flex items-center justify-center mb-4">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                </div>
+                <h3 class="font-bold mb-2">Seguimiento</h3>
+                <p class="text-sm text-slate-400">Consulta en tiempo real el estado de tu prueba presentada.</p>
+            </div>
+
+            <div class="bg-white/5 backdrop-blur-md border border-white/10 p-6 rounded-2xl hover:bg-white/10 transition-all">
+                <div class="w-10 h-10 bg-emerald-500/20 text-emerald-400 rounded-lg flex items-center justify-center mb-4">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                </div>
+                <h3 class="font-bold mb-2">Beneficios</h3>
+                <p class="text-sm text-slate-400">Visualiza los incentivos asignados por tu desempeño académico.</p>
+            </div>
+        </div>
+    </main>
+
+    <footer class="text-center p-6 text-slate-600 text-sm">
+        &copy; 2026 Unidades Tecnológicas de Santander - Saber Pro Web
+    </footer>
+
+</body>
+</html>

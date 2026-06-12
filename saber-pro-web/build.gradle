@@ -1,0 +1,61 @@
+plugins {
+    id 'java'
+    id 'org.springframework.boot' version '3.2.5'
+    id 'io.spring.dependency-management' version '1.1.5' // <-- AQUÍ ESTÁ LA MAGIA
+}
+
+// 2. Actualizamos el grupo para que coincida con tu código actual
+group = 'com.example.demo'
+version = '0.0.1-SNAPSHOT'
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(17)
+    }
+}
+
+// Configuración necesaria para que Lombok funcione bien con Gradle
+configurations {
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    // 1. Web y API REST
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    
+    // 2. Base de datos y JPA
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    runtimeOnly 'com.h2database:h2'
+    
+    // 3. Vistas con Thymeleaf
+    implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+    
+    // 4. Seguridad (Login y roles)
+    implementation 'org.springframework.boot:spring-boot-starter-security'
+    implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity6' // Útil para ocultar botones según el rol en HTML
+    
+    // 5. Validaciones
+    implementation 'org.springframework.boot:spring-boot-starter-validation'
+    
+    // 6. Lombok (Evita escribir Getters y Setters)
+    compileOnly 'org.projectlombok:lombok'
+    annotationProcessor 'org.projectlombok:lombok'
+    
+    // 7. DevTools (Recarga automática en desarrollo)
+    developmentOnly 'org.springframework.boot:spring-boot-devtools'
+    
+    // 8. Pruebas del sistema
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation 'org.springframework.security:spring-security-test'
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+}
+
+tasks.named('test') {
+    useJUnitPlatform()
+}

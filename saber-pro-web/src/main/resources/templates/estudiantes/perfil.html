@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mi Perfil - Saber Pro UTS</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-slate-50 font-sans antialiased text-slate-900 flex h-screen overflow-hidden">
+
+    <aside class="w-64 bg-slate-900 text-white flex flex-col shadow-2xl shrink-0">
+        <div class="h-16 flex items-center justify-center border-b border-slate-800">
+            <h2 class="text-2xl font-bold tracking-wider text-blue-400">SaberPro<span class="text-white">Web</span></h2>
+        </div>
+        <nav class="flex-1 px-4 py-6 space-y-2">
+            <a th:href="@{/estudiantes/perfil}" class="flex items-center gap-3 px-4 py-3 bg-blue-600 text-white rounded-lg shadow-md">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
+                <span>Mi Ruta Saber Pro</span>
+            </a>
+        </nav>
+        <div class="p-4 border-t border-slate-800">
+            <form th:action="@{/logout}" method="post">
+                <button type="submit" class="w-full text-left px-4 py-3 text-red-400 hover:bg-red-900 hover:text-white rounded-lg transition-colors flex items-center gap-2">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path></svg>
+                    Cerrar Sesión
+                </button>
+            </form>
+        </div>
+    </aside>
+
+    <div class="flex-1 flex flex-col overflow-hidden">
+        <header class="h-16 bg-white shadow-sm flex items-center justify-between px-8 z-10 shrink-0">
+            <h1 class="text-xl font-bold text-slate-700">Panel del Estudiante</h1>
+            <div class="flex items-center gap-3">
+                <span class="text-sm font-semibold text-slate-600" th:text="${estudiante.primerNombre + ' ' + estudiante.primerApellido}">Estudiante</span>
+                <div class="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center text-blue-700 font-bold uppercase"
+                     th:text="${#strings.substring(estudiante.primerNombre ?: 'U', 0, 1)}">U</div>
+            </div>
+        </header>
+
+        <main class="flex-1 overflow-y-auto p-8 bg-slate-100">
+            <div class="max-w-3xl mx-auto space-y-6">
+
+                <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-8 relative overflow-hidden">
+                    <div class="absolute top-0 left-0 w-2 h-full" th:classappend="${estudiante.urlPago == null || estudiante.urlPago.isEmpty()} ? 'bg-blue-500' : 'bg-emerald-500'"></div>
+                    
+                    <h3 class="font-bold text-xl text-slate-800 mb-2">1. Registro de Pago</h3>
+                    
+                    <div th:if="${estudiante.urlPago == null || estudiante.urlPago.isEmpty()}">
+                        <p class="text-slate-500 text-sm mb-4">Ingresa el enlace o código de tu comprobante de pago para habilitar la prueba.</p>
+                        <form th:action="@{/estudiantes/subir-pago}" method="post" class="flex flex-col sm:flex-row gap-4">
+                            <input type="text" name="urlPago" placeholder="https://..." required 
+                                   class="flex-1 border border-slate-300 px-4 py-3 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none">
+                            <button type="submit" class="bg-blue-600 text-white font-bold px-8 py-3 rounded-lg hover:bg-blue-700 transition-colors shadow-md">
+                                Registrar Pago
+                            </button>
+                        </form>
+                    </div>
+
+                    <div th:if="${estudiante.urlPago != null and !estudiante.urlPago.isEmpty()}" class="flex flex-col sm:flex-row items-start sm:items-center gap-4 bg-emerald-50 p-4 rounded-lg border border-emerald-100">
+                        <div class="flex items-center gap-2 text-emerald-700 font-bold">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                            Pago Registrado
+                        </div>
+                        <input type="text" th:value="${estudiante.urlPago}" disabled 
+                               class="flex-1 bg-white border border-emerald-200 px-4 py-2 rounded-lg text-slate-500 cursor-not-allowed opacity-75 w-full">
+                    </div>
+                </div>
+
+                <div th:if="${estudiante.urlPago != null and !estudiante.urlPago.isEmpty()}" class="bg-white rounded-xl shadow-sm border border-slate-200 p-8 relative overflow-hidden">
+                    <div class="absolute top-0 left-0 w-2 h-full" th:classappend="${!estudiante.pruebaPresentada} ? 'bg-amber-500' : 'bg-emerald-500'"></div>
+                    
+                    <h3 class="font-bold text-xl text-slate-800 mb-2">2. Presentación del Examen</h3>
+                    
+                    <div th:if="${!estudiante.pruebaPresentada}">
+                        <p class="text-slate-500 text-sm mb-6">Tu pago ha sido validado. Ya puedes registrar tu estado de presentación de la prueba Saber Pro.</p>
+                        <form th:action="@{/estudiantes/presentar}" method="post">
+                            <button type="submit" class="bg-amber-500 hover:bg-amber-600 text-white font-bold px-8 py-3 rounded-lg shadow-md transition-colors flex items-center gap-2">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path></svg>
+                                Marcar como Presentado
+                            </button>
+                        </form>
+                    </div>
+
+                    <div th:if="${estudiante.pruebaPresentada and estudiante.resultado == null}" class="flex items-center gap-3 text-indigo-600 bg-indigo-50 p-4 rounded-lg border border-indigo-100">
+                        <svg class="w-6 h-6 animate-spin" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg>
+                        <span class="font-semibold">Prueba registrada. El coordinador está procesando tus resultados.</span>
+                    </div>
+                </div>
+
+                <div th:if="${estudiante.resultado != null}" class="bg-white rounded-2xl shadow-xl overflow-hidden border border-slate-200 mt-8">
+                    
+                    <div class="bg-gradient-to-r from-blue-700 to-indigo-800 px-8 py-6 text-white relative">
+                        <h2 class="text-2xl font-bold tracking-wide">Reporte Final Unidades Tecnológicas de Santander</h2>
+                        <p class="text-blue-100 text-sm mt-1" th:text="'Documento: ' + ${estudiante.documento}"></p>
+                        <div class="absolute top-6 right-8 bg-white/20 backdrop-blur-md rounded-full px-4 py-1 text-xs font-bold uppercase shadow-sm">
+                            <span th:if="${estudiante.aprobado}" class="text-emerald-300">Aprobado</span>
+                            <span th:unless="${estudiante.aprobado}" class="text-red-300">No Aprobado</span>
+                        </div>
+                    </div>
+
+                    <div class="p-8">
+                        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6 text-center">
+                            <div class="bg-slate-50 p-4 rounded-xl border border-slate-100 shadow-sm">
+                                <span class="block text-xs font-bold text-slate-400 uppercase">Puntaje Global</span>
+                                <span class="text-3xl font-black text-blue-600 block mt-1" th:text="${estudiante.resultado.puntajeGlobal}">0</span>
+                            </div>
+                            <div class="bg-slate-50 p-4 rounded-xl border border-slate-100 shadow-sm">
+                                <span class="block text-xs font-bold text-slate-400 uppercase">Lectura</span>
+                                <span class="text-xl font-bold text-slate-700 block mt-1" th:text="${estudiante.resultado.puntajeLectura}">0</span>
+                            </div>
+                            <div class="bg-slate-50 p-4 rounded-xl border border-slate-100 shadow-sm">
+                                <span class="block text-xs font-bold text-slate-400 uppercase">Inglés</span>
+                                <span class="text-xl font-bold text-slate-700 block mt-1" th:text="${estudiante.resultado.puntajeIngles}">0</span>
+                            </div>
+                            <div class="bg-slate-50 p-4 rounded-xl border border-slate-100 shadow-sm">
+                                <span class="block text-xs font-bold text-slate-400 uppercase">Razonamiento</span>
+                                <span class="text-xl font-bold text-slate-700 block mt-1" th:text="${estudiante.resultado.puntajeRazonamiento}">0</span>
+                            </div>
+                        </div>
+
+                        <div class="bg-emerald-50 border-2 border-dashed border-emerald-300 rounded-xl p-5 flex items-center gap-4">
+                            <div class="w-12 h-12 bg-emerald-600 text-white rounded-lg flex items-center justify-center shrink-0 shadow">
+                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v13m0-13V6a2 2 0 112 2h-2zm0 0V5a2 2 0 10-2 2h2zm0 0h4m-4 0H8m12 3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                            </div>
+                            <div>
+                                <h4 class="text-xs font-extrabold text-emerald-800 uppercase tracking-wide">Beneficio Institucional</h4>
+                                <p class="text-emerald-950 font-bold text-base mt-1" th:text="${estudiante.beneficio ?: 'Sin beneficio asignado'}"></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </main>
+    </div>
+</body>
+</html>
